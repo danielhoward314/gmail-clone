@@ -4,9 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const inboxEmails = await Inbox.findAll({
-
-    })
+    const inboxEmails = await Inbox.findAll()
     res.json(inboxEmails)
   } catch (err) {
     next(err)
