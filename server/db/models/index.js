@@ -1,5 +1,7 @@
 const User = require('./user')
-const Email = require('./email')
+const Inbox = require('./inbox')
+const Sent = require('./sent')
+const Draft = require('./draft')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -8,8 +10,14 @@ const Email = require('./email')
  *    BlogPost.belongsTo(User)
  */
 
- Email.belongsTo(User)
- User.hasMany(Email)
+Inbox.belongsTo(User)
+User.hasMany(Inbox)
+
+Sent.belongsTo(User)
+User.hasMany(Sent)
+
+Draft.belongsTo(User)
+User.hasMany(Draft)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -19,5 +27,7 @@ const Email = require('./email')
  */
 module.exports = {
   User,
-  Email
+  Inbox,
+  Sent,
+  Draft
 }

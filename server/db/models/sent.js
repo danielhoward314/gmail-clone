@@ -1,13 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Email = db.define('email', {
-  inboxType: {
-    type: Sequelize.STRING
-  },
-  from: {
-    type: Sequelize.STRING
-  },
+const Sent = db.define('sent', {
   to: {
     type: Sequelize.ARRAY(Sequelize.STRING)
   },
@@ -18,11 +12,11 @@ const Email = db.define('email', {
     type: Sequelize.ARRAY(Sequelize.STRING)
   },
   subject: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   body: {
     type: Sequelize.TEXT
   }
 })
 
-module.exports = Email
+module.exports = Sent
