@@ -14,14 +14,14 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "gmail-clone-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: gmail-clone-dhoward # see README
+  api_key:
+    secure: sdHR+to2B1vMdeSClAZw7vhXiW+pQSkdTRPkcuWpALN1uDR2QmgYdJNd4rJmUDpWWWAbOSvsDrxUFk+r/ReDsZwJA6ARjSG8/qZitzPpqWwtjVU/4x7gMoef1bvtuJV7b6om221Xh4KNZdnPMfnRdsx/YwT/ohrOjfb2wmXU0r1f1i/LloYKO/z01X4rFnSRSFcPeZRQx3XPvlM+TDZ7cnVvxBZ5WNYfl+NYLaq0bEqoRB6uYEKOuGQ4bRUrZ4LPPzP1uQlVKEQtKIp8Sk/Wsi31SiLRmWOC7LhJo5EvbRfZS3e5nQAXxBeoM7T6fcDA/vD+OYZXoB1yKSSgQD5KKnOKdLbJiog81cnt2pwCJd396Bd0EJrjtA2KqceaFsdgXtR7+fTVOCIOry8gp1wAdoa99EHCW0eWODaCFBuZtq0N+6q1qSIZiJDO9s0kfT9xr9FiuoJVBWfst56C91qg8bm2CGhz12NlWb+gpv4Bvyb+HXpEkA7mHtEFE12H6kTjO/8Bc3HlIEsfvoK/RRDSRQ0CM/vmpcDTIKi6jk1AUJZn3BiSrwNMRoNfsukmLah+lHgkNdDorjWp+UIGsg2HktsmDLeHMCg/J/qUZZ1+EXo73jEEH8ZYkDkU0RoM3T0kcJTmq7YwBLUYVYoV7hxA7yzSGqU6iZo9Isu81ead29E= # see README
