@@ -4,7 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const sentEmails = await Sent.findAll()
+    const sentEmails = await Sent.findAll({ limit: 50 })
     res.json(sentEmails)
   } catch (err) {
     next(err)
