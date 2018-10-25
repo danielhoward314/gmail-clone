@@ -1,18 +1,49 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Inbox, Sent, Draft} = require('../server/db/models')
+const seedUsers = require('./seedUsers')
+const seedInbox = require('./seedInbox')
+const seedSent = require('./seedSent')
+const seedDraft = require('./seedDraft')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  const seedRunner = (seedArr, seedFlag) => {
+    let seedPromises = []
+    seedArr.forEach((seedEl) => {
+      if (seedFlag === 'users') {
+        seedPromises.push(User.create({email: seedEl.email, password: seedEl.password,
+          firstName: seedEl.firstName, lastName: seedEl.lastName}))
+      } else if (seedFlag === 'inbox') {
+        seedPromises.push(Inbox.create({from: seedEl.from, to: [seedEl.to],
+          bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
+          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
+      } else if (seedFlag === 'sent') {
+        seedPromises.push(Sent.create({to: [seedEl.to], bccTo: [seedEl.bccTo],
+          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body,
+          userId: seedEl.userId}))
+      } else if (seedFlag === 'draft') {
+        seedPromises.push(Draft.create({to: [seedEl.to], bccTo: [seedEl.bccTo],
+          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body,
+          userId: seedEl.userId}))
+      }
+
+    })
+    return Promise.all(seedPromises)
+  }
+
+  const users = await seedRunner(seedUsers, 'users')
+  const inboxes = await seedRunner(seedInbox, 'inbox')
+  const sents = await seedRunner(seedSent, 'sent')
+  const drafts = await seedRunner(seedDraft, 'draft')
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${inboxes.length} inboxes`)
+  console.log(`seeded ${sents.length} sents`)
+  console.log(`seeded ${drafts.length} drafts`)
   console.log(`seeded successfully`)
 }
 
