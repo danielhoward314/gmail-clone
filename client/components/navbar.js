@@ -1,32 +1,51 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>BOILERMAKER</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+import './Navbar.css'
+
+class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchInput: ''
+    }
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
+  render() {
+    return (
+      <div className="sticky-nav">
+        <i className="material-icons left-nav">menu</i>
+        <img id="logo-image" className="left-nav" src='favicon.png' alt="Google logo"/>
+        <span className="logo-text left-nav">Gmail</span>
+        <div className="form-container">
+          <form className="form" onSubmit={this.handleSubmit}>
+            <input type="text" name="searchInput" placeholder="search"
+            onChange={this.handleChange} />
+            <button type="submit">
+              <i className="material-icons spaced-icons">search</i>
+            </button>
+          </form>
         </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+        <div className="spacer"/>
+        <i className="material-icons spaced-icons">apps</i>
+        <i className="material-icons spaced-icons">notifications</i>
+        <i className="material-icons spaced-icons">perm_identity</i>
+      </div>
+    )
+  }
+}
 
 /**
  * CONTAINER
@@ -51,6 +70,7 @@ export default connect(mapState, mapDispatch)(Navbar)
  * PROP TYPES
  */
 Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
