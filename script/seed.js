@@ -18,17 +18,14 @@ async function seed() {
         seedPromises.push(User.create({email: seedEl.email, password: seedEl.password,
           firstName: seedEl.firstName, lastName: seedEl.lastName}))
       } else if (seedFlag === 'inbox') {
-        seedPromises.push(Inbox.create({from: seedEl.from, to: [seedEl.to],
-          bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
-          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
+        seedPromises.push(Inbox.create({from: seedEl.from, to: [seedEl.to],bccTo: [seedEl.bccTo],
+          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
       } else if (seedFlag === 'sent') {
-        seedPromises.push(Sent.create({to: [seedEl.to], bccTo: [seedEl.bccTo],
-          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body,
-          userId: seedEl.userId}))
+        seedPromises.push(Sent.create({to: [seedEl.to], bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
+          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
       } else if (seedFlag === 'draft') {
-        seedPromises.push(Draft.create({to: [seedEl.to], bccTo: [seedEl.bccTo],
-          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body,
-          userId: seedEl.userId}))
+        seedPromises.push(Draft.create({to: [seedEl.to], bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
+          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
       }
 
     })

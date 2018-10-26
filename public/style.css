@@ -114,3 +114,91 @@ input {
 .auth-submit {
   display: block;
 }
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  margin-top: 15px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 15vw;
+  min-width: 200px;
+}
+
+.compose-button {
+  background-color: rgba(0, 0, 255, 0.9);
+  color: white;
+  padding: 0 24px 0 0;
+  height: 48px;
+  min-width: 56px;
+  border-radius: 24px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.compose-text {
+  padding: 15px;
+  margin: 5 0;
+  vertical-align: middle;
+}
+
+#plus-symbol {
+  font-size: 2em;
+}
+
+#compose-container {
+  flex: 2 1 auto;
+  margin: 20px 0;
+  width: 100%;
+}
+
+#emails-container {
+  overflow-y: auto;
+  flex: 6 3 auto;
+  width: 100%;
+  min-height: 25vh;
+}
+
+#sidebar-spacer {
+  flex: 4 3 auto;
+  width: 100%;
+  height: 20vh;
+}
+
+#contacts-container {
+  overflow-y: auto;
+  flex: 8 5 auto;
+  width: 100%;
+}
+
+#sidebar-footer {
+  flex: 1 1 0;
+  min-height: 5vh;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: rgba(201, 201, 201, 0.2);
+}
+
+.sidebar-content {
+  padding: 10px 5px;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.contact-text {
+  font-size: 0.65em;
+}
+
+#wrapper {
+  display: flex;
+  height: 95vh;
+  width: 100vw;
+}
+
+.main-container {
+  width: 100%;
+}

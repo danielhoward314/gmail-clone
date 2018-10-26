@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Navbar from './navbar'
+import Sidebar from './sidebar'
+import Main from './main'
 /**
  * COMPONENT
  */
@@ -12,6 +14,10 @@ export const UserHome = props => {
     <div>
       <div className="nav-spacer" />
       <Navbar />
+      <div id="wrapper">
+        <Sidebar />
+        <Main />
+      </div>
     </div>
   )
 }
