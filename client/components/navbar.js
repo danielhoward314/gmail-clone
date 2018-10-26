@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
 
-import './Navbar.css'
-
 class Navbar extends Component {
   constructor(props) {
     super(props)

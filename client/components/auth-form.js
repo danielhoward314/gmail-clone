@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import AuthNav from './auth-form-nav'
-import './auth.css'
 
 /**
  * COMPONENT
