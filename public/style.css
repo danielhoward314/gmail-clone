@@ -5,6 +5,23 @@
 
 body {
   margin: 0px;
+  background: url("sunny.jpg");
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body:before {
+  content:"";
+  display:block;
+  position:fixed;
+  width:100%;
+  height:100%;
+  left:0;
+  top:0;
+  z-index:-1;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 a {
@@ -25,13 +42,12 @@ form div {
   display: inline-block;
 }
 
-.nav-spacer {
+.spacer {
   height: 5vh;
 }
 
 .sticky-nav {
   display: flex;
-  background-color: white;
   border-bottom-width: 2px;
   border-bottom-style: solid;
   border-bottom-color: rgba(201, 201, 201, 0.2);
@@ -43,7 +59,7 @@ form div {
   padding: 5px;
 }
 
-.spacer {
+.nav-spacer {
   flex: 1;
   flex-basis: 0.00001px;
 }
@@ -118,8 +134,7 @@ input {
 .sidebar-container {
   display: flex;
   flex-direction: column;
-  height: 95vh;
-  margin-top: 15px;
+  height: 90vh;
   align-items: flex-start;
   justify-content: flex-start;
   width: 15vw;
@@ -127,8 +142,8 @@ input {
 }
 
 .compose-button {
-  background-color: rgba(0, 0, 255, 0.9);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(103, 103, 103);
   padding: 0 24px 0 0;
   height: 48px;
   min-width: 56px;
@@ -150,7 +165,7 @@ input {
 
 #compose-container {
   flex: 2 1 auto;
-  margin: 20px 0;
+  margin: 20px 5px;
   width: 100%;
 }
 
@@ -175,7 +190,7 @@ input {
 
 #sidebar-footer {
   flex: 1 1 0;
-  min-height: 5vh;
+  height: 5vh;
   border-top-width: 2px;
   border-top-style: solid;
   border-top-color: rgba(201, 201, 201, 0.2);
@@ -195,10 +210,35 @@ input {
 
 #wrapper {
   display: flex;
-  height: 95vh;
+  height: 90vh;
   width: 100vw;
 }
 
 .main-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+#main-outer-container {
+  width: 80vw;
+}
+
+#main-footer {
+  min-height: 5vh;
+}
+
+#main-spacer {
+  min-height: 5vh;
+}
+
+.email-preview {
+  padding: 5px;
+  border: 2px solid rgba(201, 201, 201, 0.3);
+  width: 99%;
+  background-color: rgba(238, 238, 238, 0.4);
 }

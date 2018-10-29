@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
+import {emitConfig} from '../store/config'
 const dummyContacts = [
   "acastagnier0@posterous.com", "pcosgrave1@sciencedaily.com",
   "abignold2@hp.com", "bdaldry3@shop-pro.jp",
@@ -24,6 +24,11 @@ class Sidebar extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(config, flag, view) {
+    this.props.emitConfig(config, flag, view)
   }
 
   render() {
@@ -36,15 +41,15 @@ class Sidebar extends Component {
           </button>
         </div>
         <div id="emails-container">
-          <div className="sidebar-content">
+          <div className="sidebar-content" onClick={() => this.handleClick('inbox', 'emailType', 'preview')} >
             <i className="material-icons">inbox</i>
             <span>Inbox</span>
           </div>
-          <div className="sidebar-content">
+          <div className="sidebar-content" onClick={() => this.handleClick('sent', 'emailType', 'preview')} >
             <i className="material-icons">send</i>
             <span>Sent</span>
           </div>
-          <div className="sidebar-content">
+          <div className="sidebar-content" onClick={() => this.handleClick('draft', 'emailType', 'preview')} >
             <i className="material-icons">insert_drive_file</i>
             <span>Drafts</span>
           </div>
@@ -53,7 +58,7 @@ class Sidebar extends Component {
         <div id="contacts-container">
           {dummyContacts.map((contact, idx) => {
             return (
-              <div className="sidebar-content" key={idx}>
+              <div className="sidebar-content" key={idx} onClick={() => this.handleClick(contact, 'contact')} >
                 <i className="material-icons spaced-icons contact-icons">perm_identity</i>
                 <span className="contact-text">{contact}</span>
               </div>
@@ -66,9 +71,13 @@ class Sidebar extends Component {
   }
 }
 
+const mapDispatch = (dispatch) => ({
+  emitConfig: (configTarget, flag, view) => dispatch(emitConfig(configTarget, flag, view))
+})
+
 /**
  * CONTAINER
  */
 
-export default connect(null, null)(Sidebar)
+export default connect(null, mapDispatch)(Sidebar)
 

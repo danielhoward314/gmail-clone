@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
 
@@ -29,14 +28,14 @@ class Navbar extends Component {
         <span className="logo-text left-nav">Gmail</span>
         <div className="form-container">
           <form className="form" onSubmit={this.handleSubmit}>
-            <input type="text" name="searchInput" placeholder="search"
-            onChange={this.handleChange} />
             <button type="submit">
               <i className="material-icons spaced-icons">search</i>
             </button>
+            <input type="text" name="searchInput" placeholder="search"
+            onChange={this.handleChange} />
           </form>
         </div>
-        <div className="spacer"/>
+        <div className="nav-spacer"/>
         <i className="material-icons spaced-icons">apps</i>
         <i className="material-icons spaced-icons">notifications</i>
         <i className="material-icons spaced-icons">perm_identity</i>
@@ -63,12 +62,3 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(Navbar)
-
-/**
- * PROP TYPES
- */
-Navbar.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
