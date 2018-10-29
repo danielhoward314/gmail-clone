@@ -14,23 +14,23 @@ const ONE_DRAFT = 'ONE_DRAFT'
  * INITIAL STATE
  */
 const defaultState = {
-  inbox: [],
-  sent: [],
-  draft: [],
-  oneInbox: [],
-  oneSent: [],
-  oneDraft: [],
+  previewInbox: [],
+  previewSent: [],
+  previewDraft: [],
+  detailInbox: [],
+  detailSent: [],
+  detailDraft: [],
 }
 
 /**
  * ACTION CREATORS
  */
-const getInbox = (inbox) => ({type: GET_INBOX, inbox})
-const getSent = (sent) => ({type: GET_SENT, sent})
-const getDraft = (draft) => ({type: GET_DRAFT, draft})
-const getOneInbox = (oneInbox) => ({type: ONE_INBOX, oneInbox})
-const getOneSent = (oneSent) => ({type: ONE_SENT, oneSent})
-const getOneDraft = (oneDraft) => ({type: ONE_DRAFT, oneDraft})
+const getInbox = (previewInbox) => ({type: GET_INBOX, previewInbox})
+const getSent = (previewSent) => ({type: GET_SENT, previewSent})
+const getDraft = (previewDraft) => ({type: GET_DRAFT, previewDraft})
+const getOneInbox = (detailInbox) => ({type: ONE_INBOX, detailInbox})
+const getOneSent = (detailSent) => ({type: ONE_SENT, detailSent})
+const getOneDraft = (detailDraft) => ({type: ONE_DRAFT, detailDraft})
 /**
  * THUNK CREATORS
  */
@@ -72,37 +72,37 @@ export default function(state = defaultState, action) {
     case GET_INBOX: {
       return {
         ...state,
-        inbox: action.inbox
+        previewInbox: action.previewInbox
       };
     }
     case GET_SENT: {
       return {
         ...state,
-        sent: action.sent
+        previewSent: action.previewSent
       };
     }
     case GET_DRAFT: {
       return {
         ...state,
-        draft: action.draft
+        previewDraft: action.previewDraft
       };
     }
     case ONE_INBOX: {
       return {
         ...state,
-        oneInbox: action.oneInbox
+        detailInbox: action.detailInbox
       };
     }
     case ONE_SENT: {
       return {
         ...state,
-        oneSent: action.oneSent
+        detailSent: action.detailSent
       };
     }
     case ONE_DRAFT: {
       return {
         ...state,
-        oneDraft: action.oneDraft
+        detailDraft: action.detailDraft
       };
     }
     default: {
