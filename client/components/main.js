@@ -46,12 +46,9 @@ class Main extends Component {
     if(this.state.view === 'detail') {
       const firstLetter = this.props.config.selectedEmailType[0].toUpperCase()
       const letters = this.props.config.selectedEmailType.slice(1)
-      const dataAttr = `one${firstLetter + letters}`
-      console.log(firstLetter)
-      console.log(letters)
-      console.log(dataAttr)
+      const dataAttr = `detail${firstLetter + letters}`
       const data = this.props[dataAttr]
-      console.log(`data in the detail view case: `, data)
+      console.log(data)
       return (
         <div id="main-outer-container">
           <div id="main-spacer" />
@@ -64,7 +61,11 @@ class Main extends Component {
         </div >
       )
     } else {
-        const data = this.props[this.props.config.selectedEmailType]
+        const firstLetter = this.props.config.selectedEmailType[0].toUpperCase()
+        const letters = this.props.config.selectedEmailType.slice(1)
+        const dataAttr = `preview${firstLetter + letters}`
+        const data = this.props[dataAttr]
+        console.log(data)
         return (
           <div id="main-outer-container">
             <div id="main-spacer" />
@@ -85,12 +86,12 @@ class Main extends Component {
 const mapState = (state) => {
   return {
     config: state.config,
-    inbox: state.email.inbox,
-    sent: state.email.sent,
-    draft: state.email.draft,
-    oneInbox: state.email.oneInbox,
-    oneSent: state.email.oneSent,
-    oneDraft: state.email.oneDraft
+    previewInbox: state.email.previewInbox,
+    previewSent: state.email.previewSent,
+    previewDraft: state.email.previewDraft,
+    detailInbox: state.email.detailInbox,
+    detailSent: state.email.detailSent,
+    detailDraft: state.email.detailDraft
   }
 }
 
