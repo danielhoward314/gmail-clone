@@ -6,6 +6,7 @@ const EMAIL_TYPE = 'EMAIL_TYPE'
 const SIDEBAR_COLLAPSED = 'SIDEBAR_COLLAPSED'
 const SELECTED_CONTACT ='SELECTED_CONTACT'
 const DRAFT_OPEN = 'DRAFT_OPEN'
+const DRAFT_CLOSE = 'DRAFT_CLOSE'
 const PAGE_NUM = 'PAGE_NUM'
 
 /**
@@ -16,7 +17,7 @@ const defaultState = {
   selectedEmailType: 'inbox',
   view: 'preview',
   selectedContact: null,
-  draftOpen: false,
+  closeDraft: 'unasked',
   pageNum: 1
 }
 
@@ -28,6 +29,7 @@ const switchEmailType = (payload) => ({type: EMAIL_TYPE, payload})
 const toggleSidebar = (config) => ({type: SIDEBAR_COLLAPSED, config})
 const selectContact = (config) => ({type: SELECTED_CONTACT, config})
 const openDraft = (config) => ({type: DRAFT_OPEN, config})
+const closeDraft = (config) => ({type: DRAFT_CLOSE, config})
 const switchPage = (config) => ({type: PAGE_NUM, config})
 
 /**
@@ -45,6 +47,8 @@ export const emitConfig = (config, flag, view) => dispatch => {
       return dispatch(openDraft(config))
   } else if (flag === 'pageNum') {
     return dispatch(switchPage(config))
+  } else if (flag === 'closeDraft') {
+    return dispatch(closeDraft(config))
   }
 }
 
@@ -55,7 +59,6 @@ export const emitConfig = (config, flag, view) => dispatch => {
 export default function(state = defaultState, action) {
   switch (action.type) {
     case EMAIL_TYPE: {
-      console.log(action)
       return {
         ...state,
         selectedEmailType: action.payload.config,
@@ -72,6 +75,13 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         selectedContact: action.config
+      };
+    }
+    case DRAFT_CLOSE: {
+      return {
+        ...state,
+        closeDraft: action.closeDraft,
+        view: action.view
       };
     }
     default: {
