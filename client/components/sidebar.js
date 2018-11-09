@@ -25,17 +25,26 @@ class Sidebar extends Component {
     super(props)
     this.state = {}
     this.handleClick = this.handleClick.bind(this)
+    this.newDraft = this.newDraft.bind(this)
   }
 
   handleClick(config, flag, view) {
     this.props.emitConfig(config, flag, view)
   }
 
+  async newDraft() {
+    try {
+      await this.props.emitConfig('draft', 'emailType', 'detail')
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   render() {
     return (
       <div className="sidebar-container">
         <div id="compose-container">
-          <button className="compose-button" type="button">
+          <button className="compose-button" type="button" onClick={this.newDraft}>
             <span id="plus-symbol" className="compose-text">+</span>
             <span className="compose-text">Compose</span>
           </button>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {logout} from '../store'
+import Avatar from './avatar'
 
 class Navbar extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Navbar extends Component {
         <div className="nav-spacer"/>
         <i className="material-icons spaced-icons">apps</i>
         <i className="material-icons spaced-icons">notifications</i>
-        <i className="material-icons spaced-icons">perm_identity</i>
+        <Avatar />
       </div>
     )
   }

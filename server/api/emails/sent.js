@@ -1,28 +1,27 @@
 const router = require('express').Router()
 const {Sent} = require('../../db/models')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 module.exports = router
 
-router.get('/p/:pageNum', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
+  try {
+    const email = await Sent.create(req.body)
+    res.json(email)
+  } catch (err) {
+      console.log(err)
+  }
+})
+
+router.get('/user/:id/p/:pageNum', async (req, res, next) => {
   try {
     if (req.params.pageNum > 1) {
       const offsetMultiplier = +req.params.pageNum - 1
       const offset = offsetMultiplier * 50
-      const idStartRange = offset + 1
-      const idEndRange = offset + 50
-      const sentEmails = await Sent.findAll({ limit: 50, where: {
-        id: {
-          [Op.between]: [idStartRange, idEndRange]
-        }
-      } })
+      const sentEmails = await Sent.findAll({ limit: 50, offset: offset,
+        where: {userId: req.params.id}
+      })
       res.json(sentEmails)
     } else {
-        const sentEmails = await Sent.findAll({ limit: 50, where: {
-          id: {
-            [Op.between]: [1, 50]
-          }
-        } })
+        const sentEmails = await Sent.findAll({ limit: 50, where: {userId: req.params.id}})
         res.json(sentEmails)
       }
   } catch (err) {

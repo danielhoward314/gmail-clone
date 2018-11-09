@@ -11,31 +11,97 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const seedRunner = (seedArr, seedFlag) => {
+  const userSeedRunner = (seedArr) => {
     let seedPromises = []
     seedArr.forEach((seedEl) => {
-      if (seedFlag === 'users') {
         seedPromises.push(User.create({email: seedEl.email, password: seedEl.password,
           firstName: seedEl.firstName, lastName: seedEl.lastName}))
-      } else if (seedFlag === 'inbox') {
-        seedPromises.push(Inbox.create({from: seedEl.from, to: [seedEl.to],bccTo: [seedEl.bccTo],
-          ccTo: [seedEl.ccTo], subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
-      } else if (seedFlag === 'sent') {
-        seedPromises.push(Sent.create({to: [seedEl.to], bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
-          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
-      } else if (seedFlag === 'draft') {
-        seedPromises.push(Draft.create({to: [seedEl.to], bccTo: [seedEl.bccTo], ccTo: [seedEl.ccTo],
-          subject: seedEl.subject, body: seedEl.body, userId: seedEl.userId}))
-      }
-
     })
     return Promise.all(seedPromises)
   }
 
-  const users = await seedRunner(seedUsers, 'users')
-  const inboxes = await seedRunner(seedInbox, 'inbox')
-  const sents = await seedRunner(seedSent, 'sent')
-  const drafts = await seedRunner(seedDraft, 'draft')
+  const inboxSeedRunner = (seedArr) => {
+    let seedPromises = []
+    seedArr.forEach((seedEl) => {
+      const userFind = () => {
+        const user = seedUsers.filter((userEl, idx) => {
+          if(idx === seedEl.userId -1 && seedEl.userId === 1) return true
+          return idx === (seedEl.userId -1)
+        })
+        const userId = seedUsers.map((userEl, idx) => {
+          if(idx === (seedEl.userId -1)) return ++idx
+        })
+        const userIdFilt = userId.filter((userEl) => {
+          return userEl
+        })
+        return {user: user[0], userIdFilt: userIdFilt[0]}
+      }
+      const userObj = userFind()
+      let randomIdx = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxTwo = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxThree = Math.floor(Math.random()*(29-0+1)+0)
+      seedPromises.push(Inbox.create({from: seedUsers[randomIdx].email, to: [userObj.user.email], bccTo: [seedUsers[randomIdxTwo].email],
+        ccTo: [seedUsers[randomIdxThree].email], subject: seedEl.subject, body: seedEl.body, userId: userObj.userIdFilt}))
+    })
+    return Promise.all(seedPromises)
+  }
+
+  const sentSeedRunner = (seedArr) => {
+    let seedPromises = []
+    seedArr.forEach((seedEl) => {
+      const userFind = () => {
+        const user = seedUsers.filter((userEl, idx) => {
+          if(idx === seedEl.userId -1 && seedEl.userId === 1) return true
+          return idx === (seedEl.userId -1)
+        })
+        const userId = seedUsers.map((userEl, idx) => {
+          if(idx === (seedEl.userId -1)) return ++idx
+        })
+        const userIdFilt = userId.filter((userEl) => {
+          return userEl
+        })
+        return {user: user[0], userIdFilt: userIdFilt[0]}
+      }
+      const userObj = userFind()
+      let randomIdx = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxTwo = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxThree = Math.floor(Math.random()*(29-0+1)+0)
+      seedPromises.push(Sent.create({to: [seedUsers[randomIdx].email], bccTo: [seedUsers[randomIdxTwo].email],
+        ccTo: [seedUsers[randomIdxThree].email], subject: seedEl.subject, body: seedEl.body, userId: userObj.userIdFilt}))
+    })
+    return Promise.all(seedPromises)
+  }
+
+  const draftSeedRunner = (seedArr) => {
+    let seedPromises = []
+    seedArr.forEach((seedEl) => {
+      const userFind = () => {
+        const user = seedUsers.filter((userEl, idx) => {
+          if(idx === seedEl.userId -1 && seedEl.userId === 1) return true
+          return idx === (seedEl.userId -1)
+        })
+        const userId = seedUsers.map((userEl, idx) => {
+          if(idx === (seedEl.userId -1)) return ++idx
+        })
+        const userIdFilt = userId.filter((userEl) => {
+          return userEl
+        })
+        return {user: user[0], userIdFilt: userIdFilt[0]}
+      }
+      const userObj = userFind()
+      let randomIdx = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxTwo = Math.floor(Math.random()*(29-0+1)+0)
+      let randomIdxThree = Math.floor(Math.random()*(29-0+1)+0)
+      seedPromises.push(Draft.create({to: [seedUsers[randomIdx].email], bccTo: [seedUsers[randomIdxTwo].email],
+        ccTo: [seedUsers[randomIdxThree].email], subject: seedEl.subject, body: seedEl.body, userId: userObj.userIdFilt}))
+    })
+    return Promise.all(seedPromises)
+  }
+
+  const users = await userSeedRunner(seedUsers)
+  const inboxes = await inboxSeedRunner(seedInbox)
+  const sents = await sentSeedRunner(seedSent)
+  const drafts = await draftSeedRunner(seedDraft)
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${inboxes.length} inboxes`)
